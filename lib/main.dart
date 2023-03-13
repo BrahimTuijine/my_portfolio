@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/desktop/desktop.dart';
-import 'package:my_portfolio/mobile/mobile.dart';
+import 'package:my_portfolio/screens/desktop.dart';
+import 'package:my_portfolio/screens/mobile.dart';
 import 'package:my_portfolio/responsive/responsive_layout.dart';
 
 void main() {

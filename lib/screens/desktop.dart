@@ -1,28 +1,16 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:my_portfolio/constants/constants.dart';
+import 'package:my_portfolio/widgets/fade_animation_up.dart';
+import 'package:my_portfolio/widgets/resume_btn.dart';
 
 class DesktopBody extends HookWidget {
   const DesktopBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final animController = useAnimationController(
-      duration: const Duration(seconds: 1),
-    );
-
-    final animation = Tween<double>(begin: 70, end: 0)
-        .animate(CurvedAnimation(parent: animController, curve: Curves.easeIn));
-
-    final animationOp = Tween<double>(begin: 0, end: 1).animate(animController);
-
-    useEffect(() {
-      animController.forward();
-      return null;
-    }, const []);
-
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     final tabController = useTabController(initialLength: 2);
@@ -47,7 +35,7 @@ class DesktopBody extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const AutoSizeText(
+                const Text(
                   '<Brahim/>',
                   style: TextStyle(
                       color: Colors.white,
@@ -62,13 +50,13 @@ class DesktopBody extends HookWidget {
                     indicatorColor: greenColor,
                     tabs: const [
                       Tab(
-                          child: AutoSizeText(
+                          child: Text(
                         'ABOUT',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       )),
                       Tab(
-                          child: AutoSizeText(
+                          child: Text(
                         'PROJECTS',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -76,37 +64,8 @@ class DesktopBody extends HookWidget {
                     ],
                   ),
                 ),
-                AnimatedBuilder(
-                  animation: animController,
-                  builder: (BuildContext context, Widget? child) {
-                    return Opacity(
-                      opacity: animationOp.value,
-                      child: Transform.translate(
-                        offset: Offset(0, animation.value),
-                        child: SizedBox(
-                          height: 45,
-                          width: 110,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                elevation: 8.0,
-                                side: const BorderSide(
-                                    width: 1, color: Colors.white),
-                                backgroundColor: const Color(0xff21a179),
-                                shape: const StadiumBorder(),
-                              ),
-                              onPressed: () {},
-                              child: const AutoSizeText(
-                                "RESUME",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                const FadeAnimationUp(
+                    child: ResumeButton(height: 45, width: 110)),
               ],
             ),
             SizedBox(
@@ -121,8 +80,8 @@ class DesktopBody extends HookWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AutoSizeText.rich(
-                            TextSpan(
+                          RichText(
+                            text: TextSpan(
                               text: 'Hi, my name is \n',
                               style: const TextStyle(
                                   color: Colors.white,
@@ -139,7 +98,7 @@ class DesktopBody extends HookWidget {
                           SizedBox(
                             height: screenHeight * .02,
                           ),
-                          AutoSizeText(
+                          Text(
                             textAlign: TextAlign.justify,
                             "3arref nafsek" * 7,
                             style: const TextStyle(
@@ -152,14 +111,12 @@ class DesktopBody extends HookWidget {
                       SizedBox(
                         width: screenWidth * 0.03,
                       ),
-                      Container(
-                        height: 200,
-                        width: 200,
-                        color: Colors.red,
+                      const FlutterLogo(
+                        size: 200,
                       )
                     ],
                   ),
-                  const AutoSizeText(
+                  const Text(
                     'second Page',
                     style: TextStyle(color: Colors.white, fontSize: 30),
                   ),
@@ -215,7 +172,7 @@ class DesktopBody extends HookWidget {
                         ),
                       ],
                     ),
-                    const AutoSizeText(
+                    const Text(
                       "Made with Flutter \u00a9 2023",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
