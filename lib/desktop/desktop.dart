@@ -9,6 +9,20 @@ class DesktopBody extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final animController = useAnimationController(
+      duration: const Duration(seconds: 1),
+    );
+
+    final animation = Tween<double>(begin: 70, end: 0)
+        .animate(CurvedAnimation(parent: animController, curve: Curves.easeIn));
+
+    final animationOp = Tween<double>(begin: 0, end: 1).animate(animController);
+
+    useEffect(() {
+      animController.forward();
+      return null;
+    }, const []);
+
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     final tabController = useTabController(initialLength: 2);
@@ -62,25 +76,37 @@ class DesktopBody extends HookWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 45,
-                  width: 110,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 8.0,
-                        side: const BorderSide(width: 1, color: Colors.white),
-                        backgroundColor: const Color(0xff21a179),
-                        shape: const StadiumBorder(),
+                AnimatedBuilder(
+                  animation: animController,
+                  builder: (BuildContext context, Widget? child) {
+                    return Opacity(
+                      opacity: animationOp.value,
+                      child: Transform.translate(
+                        offset: Offset(0, animation.value),
+                        child: SizedBox(
+                          height: 45,
+                          width: 110,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 8.0,
+                                side: const BorderSide(
+                                    width: 1, color: Colors.white),
+                                backgroundColor: const Color(0xff21a179),
+                                shape: const StadiumBorder(),
+                              ),
+                              onPressed: () {},
+                              child: const AutoSizeText(
+                                "RESUME",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                        ),
                       ),
-                      onPressed: () {},
-                      child: const AutoSizeText(
-                        "RESUME",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      )),
-                )
+                    );
+                  },
+                ),
               ],
             ),
             SizedBox(
