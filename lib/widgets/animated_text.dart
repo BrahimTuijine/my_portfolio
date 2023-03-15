@@ -1,13 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class AnimatedText extends HookWidget {
+  final bool isMobile;
+  final double fontSize;
   const AnimatedText({
     super.key,
+    required this.isMobile,
+    required this.fontSize,
   });
 
-  final String text = ''' I'm very interested in mobile development and embedded
-systems, looking for an internship or professional opportunity to
+  final String text =
+      ''' I'm very interested in mobile development , looking for
+an internship or professional opportunity to
 acquire more practical skills and competencies and well socialize
 in a professional industry. ''';
 
@@ -26,12 +32,12 @@ in a professional industry. ''';
       animation: animation,
       builder: (BuildContext context, Widget? child) {
         return Text(
-          textAlign: TextAlign.center,
+          textAlign: isMobile ? TextAlign.center : null,
           '${animation.value}',
-          style: const TextStyle(
+          style: TextStyle(
               color: Colors.white54,
               fontFamily: 'DMSerifDisplay',
-              fontSize: 14.2),
+              fontSize: fontSize),
         );
       },
     );

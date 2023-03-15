@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/screens/desktop.dart';
 import 'package:my_portfolio/screens/mobile.dart';
-import 'package:my_portfolio/responsive/responsive_layout.dart';
+import 'package:my_portfolio/utils/responsive/responsive_layout.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

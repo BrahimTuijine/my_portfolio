@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:my_portfolio/constants/constants.dart';
-import 'package:my_portfolio/widgets/fade_animation_up.dart';
+import 'package:my_portfolio/utils/constants/constants.dart';
+import 'package:my_portfolio/utils/methods/url_lunch.dart';
+import 'package:my_portfolio/widgets/animated_text.dart';
 import 'package:my_portfolio/widgets/resume_btn.dart';
 
 class DesktopBody extends HookWidget {
@@ -11,6 +12,20 @@ class DesktopBody extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final animController = useAnimationController(
+      duration: const Duration(milliseconds: 1500),
+    );
+
+    final animation = Tween<double>(begin: 30, end: 0)
+        .animate(CurvedAnimation(parent: animController, curve: Curves.easeIn));
+
+    final animationOp = Tween<double>(begin: 0, end: 1).animate(animController);
+
+    useEffect(() {
+      animController.forward();
+      return null;
+    }, const []);
+
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     final tabController = useTabController(initialLength: 2);
@@ -35,13 +50,24 @@ class DesktopBody extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  '<Brahim/>',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 36,
-                      fontFamily: 'DancingScript'),
+                AnimatedBuilder(
+                  animation: animController,
+                  builder: (BuildContext context, Widget? child) {
+                    return Opacity(
+                      opacity: animationOp.value,
+                      child: Transform.translate(
+                        offset: Offset(0, animation.value),
+                        child: const Text(
+                          '<Brahim/>',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 36,
+                              fontFamily: 'DancingScript'),
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(
                   width: 250,
@@ -64,8 +90,18 @@ class DesktopBody extends HookWidget {
                     ],
                   ),
                 ),
-                const FadeAnimationUp(
-                    child: ResumeButton(height: 45, width: 110)),
+                AnimatedBuilder(
+                  animation: animController,
+                  builder: (BuildContext context, Widget? child) {
+                    return Opacity(
+                      opacity: animationOp.value,
+                      child: Transform.translate(
+                        offset: Offset(0, animation.value),
+                        child: const ResumeButton(height: 45, width: 110),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             SizedBox(
@@ -75,6 +111,7 @@ class DesktopBody extends HookWidget {
                 controller: tabController,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -98,19 +135,12 @@ class DesktopBody extends HookWidget {
                           SizedBox(
                             height: screenHeight * .02,
                           ),
-                          Text(
-                            textAlign: TextAlign.justify,
-                            "3arref nafsek" * 7,
-                            style: const TextStyle(
-                                color: Colors.white54,
-                                fontFamily: 'DMSerifDisplay',
-                                fontSize: 16),
-                          ),
+                          const AnimatedText(fontSize: 14.2, isMobile: false),
                         ],
                       ),
-                      SizedBox(
-                        width: screenWidth * 0.03,
-                      ),
+                      // SizedBox(
+                      //   width: screenWidth / 4,
+                      // ),
                       const FlutterLogo(
                         size: 200,
                       )
@@ -167,7 +197,9 @@ class DesktopBody extends HookWidget {
                               size: screenHeight * 0.055,
                               color: Colors.white,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Methods.launchEmail();
+                            },
                           ),
                         ),
                       ],

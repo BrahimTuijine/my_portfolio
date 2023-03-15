@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_portfolio/utils/methods/url_lunch.dart';
 
 class ResumeButton extends HookWidget {
   final double height;
@@ -22,7 +23,10 @@ class ResumeButton extends HookWidget {
             backgroundColor: const Color(0xff21a179),
             shape: const StadiumBorder(),
           ),
-          onPressed: () {},
+          onPressed: () async {
+            Methods.openURL(
+                "https://drive.google.com/");
+          },
           child: const Text(
             "RESUME",
             style: TextStyle(

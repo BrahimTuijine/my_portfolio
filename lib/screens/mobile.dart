@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_portfolio/widgets/animated_text.dart';
-import 'package:my_portfolio/widgets/fade_animation_up.dart';
 import 'package:my_portfolio/widgets/resume_btn.dart';
 
 class MobileBody extends HookWidget {
@@ -9,6 +8,22 @@ class MobileBody extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final animController = useAnimationController(
+      duration: const Duration(seconds: 2),
+    );
+
+    final animation = Tween<double>(begin: 30, end: 0)
+        .animate(CurvedAnimation(parent: animController, curve: Curves.easeIn));
+
+    final animationOp = Tween<double>(begin: 0, end: 1).animate(animController);
+
+    useEffect(() {
+      animController.forward();
+      return null;
+    }, const []);
+
+    final double width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -26,20 +41,46 @@ class MobileBody extends HookWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      '<Brahim/>',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          fontFamily: 'DancingScript'),
+                  children: <Widget>[
+                    // const Text(
+                    //   '<Brahim/>',
+                    //   style: TextStyle(
+                    //     color: Colors.white,
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 22,
+                    //     fontFamily: 'DancingScript',
+                    //   ),
+                    // ),
+                    AnimatedBuilder(
+                      animation: animController,
+                      builder: (BuildContext context, Widget? child) {
+                        return Opacity(
+                          opacity: animationOp.value,
+                          child: Transform.translate(
+                            offset: Offset(0, animation.value),
+                            child: const Text(
+                              '<Brahim/>',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22,
+                                  fontFamily: 'DancingScript'),
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                    FadeAnimationUp(
-                      child: ResumeButton(
-                        height: 40,
-                        width: 100,
-                      ),
+                    AnimatedBuilder(
+                      animation: animController,
+                      builder: (BuildContext context, Widget? child) {
+                        return Opacity(
+                          opacity: animationOp.value,
+                          child: Transform.translate(
+                            offset: Offset(0, animation.value),
+                            child: ResumeButton(height: 40, width: width * .25),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -52,7 +93,12 @@ class MobileBody extends HookWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const AnimatedText(),
+                const AnimatedText(
+                  fontSize: 14.2,
+                  isMobile: true,
+                ),
+
+                
               ],
             ),
           ),
