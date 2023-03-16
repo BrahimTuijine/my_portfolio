@@ -24,13 +24,16 @@ class ResumeButton extends HookWidget {
             shape: const StadiumBorder(),
           ),
           onPressed: () async {
-            Methods.openURL(
-                "https://drive.google.com/");
+            Methods.openURL("https://drive.google.com/");
           },
-          child: const Text(
-            "RESUME",
-            style: TextStyle(
-                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+          child: const FittedBox(
+            child: Text(
+              "RESUME",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
           )),
     );
   }
