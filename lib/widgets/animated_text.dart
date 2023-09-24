@@ -12,7 +12,7 @@ class AnimatedText extends HookWidget {
   });
 
   final String text =
-      ''' I'm very interested in mobile development , looking for
+      '''I'm very interested in mobile development , looking for
 an internship or professional opportunity to
 acquire more practical skills and competencies and well socialize
 in a professional industry. ''';

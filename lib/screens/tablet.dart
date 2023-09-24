@@ -8,8 +8,8 @@ import 'package:my_portfolio/utils/methods/url_lunch.dart';
 import 'package:my_portfolio/widgets/animated_text.dart';
 import 'package:my_portfolio/widgets/resume_btn.dart';
 
-class DesktopBody extends HookWidget {
-  const DesktopBody({Key? key}) : super(key: key);
+class TabletBody extends HookWidget {
+  const TabletBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class DesktopBody extends HookWidget {
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 8.sp,
+                              fontSize: 12.sp,
                               fontFamily: 'DancingScript'),
                         ),
                       ),
@@ -70,7 +70,7 @@ class DesktopBody extends HookWidget {
                   },
                 ),
                 SizedBox(
-                  width: 100.w,
+                  width: 110.w,
                   child: TabBar(
                     controller: tabController,
                     indicatorColor: greenColor,
@@ -79,13 +79,13 @@ class DesktopBody extends HookWidget {
                           child: Text(
                         'ABOUT',
                         style: TextStyle(
-                            fontSize: 5.sp, fontWeight: FontWeight.bold),
+                            fontSize: 7.sp, fontWeight: FontWeight.bold),
                       )),
                       Tab(
                           child: Text(
                         'PROJECTS',
                         style: TextStyle(
-                            fontSize: 5.sp, fontWeight: FontWeight.bold),
+                            fontSize: 7.sp, fontWeight: FontWeight.bold),
                       )),
                     ],
                   ),
@@ -99,8 +99,8 @@ class DesktopBody extends HookWidget {
                         offset: Offset(0, animation.value),
                         child: ResumeButton(
                           height: 40.h,
-                          width: 40.w,
-                          fontSize: 5.sp,
+                          width: 50.w,
+                          fontSize: 6.sp,
                         ),
                       ),
                     );
@@ -126,7 +126,7 @@ class DesktopBody extends HookWidget {
                               text: 'Hi, my name is \n',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 15.sp,
+                                  fontSize: 18.sp,
                                   fontFamily: 'DMSerifDisplay'),
                               children: <TextSpan>[
                                 TextSpan(
@@ -139,7 +139,7 @@ class DesktopBody extends HookWidget {
                           SizedBox(
                             height: screenHeight * .02,
                           ),
-                          AnimatedText(fontSize: 4.sp, isMobile: false),
+                          AnimatedText(fontSize: 7.sp, isMobile: false),
                         ],
                       ),
                       // SizedBox(
@@ -212,7 +212,7 @@ class DesktopBody extends HookWidget {
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 5.sp),
+                        fontSize: 8.sp),
                   )
                 ],
               ),
