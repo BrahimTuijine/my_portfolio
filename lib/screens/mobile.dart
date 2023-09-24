@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/widgets/animated_text.dart';
+import 'package:my_portfolio/widgets/project_list.dart';
 import 'package:my_portfolio/widgets/resume_btn.dart';
 
 class MobileBody extends HookWidget {
@@ -10,20 +11,6 @@ class MobileBody extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final animController = useAnimationController(
-      duration: const Duration(seconds: 2),
-    );
-
-    final animRight = Tween<double>(begin: -((width / 2) + 20), end: 0)
-        .animate(animController);
-
-    final animLeft =
-        Tween<double>(begin: (width / 2) + 20, end: 0).animate(animController);
-
-    useEffect(() {
-      animController.forward();
-      return null;
-    }, const []);
 
     return SafeArea(
       child: Scaffold(
@@ -40,6 +27,9 @@ class MobileBody extends HookWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             child: Column(
               children: [
+                SizedBox(
+                  height: 20.h,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -74,62 +64,35 @@ class MobileBody extends HookWidget {
                     isMobile: true,
                   ),
                 ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                Expanded(
-                  child: ListView.separated(
-                    // physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 10.h,
+                // SizedBox(
+                //   height: 10.h,
+                // ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "What I've build",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: const Color(0xffCCD6F6),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                    itemCount: 5,
-                    itemBuilder: (BuildContext context, int index) {
-                      return AnimatedBuilder(
-                        animation: animController,
-                        builder: (BuildContext context, Widget? child) {
-                          return Stack(
-                            children: [
-                              Transform.translate(
-                                offset: Offset(animRight.value, 0),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Container(
-                                    height: 150.h,
-                                    width: width / 2,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                              Transform.translate(
-                                offset: Offset(animLeft.value, 0),
-                                child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 20.h),
-                                    height: 100.h,
-                                    width: width / 2,
-                                    color: const Color(0xff21a179),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10.w, vertical: 10.h),
-                                      child: Center(
-                                          child: Text(
-                                        'hello ' * 10,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      )),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
+                    Container(
+                      width: 100.w,
+                      height: 1.10,
+                      color: const Color(0xff303C55),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                const Expanded(
+                  child: ProjectListWiget(),
                 ),
               ],
             ),

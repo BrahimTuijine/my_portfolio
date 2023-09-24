@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_portfolio/utils/constants/constants.dart';
 import 'package:my_portfolio/utils/methods/url_lunch.dart';
 import 'package:my_portfolio/widgets/animated_text.dart';
+import 'package:my_portfolio/widgets/project_list.dart';
 import 'package:my_portfolio/widgets/resume_btn.dart';
 
 class DesktopBody extends HookWidget {
@@ -46,6 +47,9 @@ class DesktopBody extends HookWidget {
         ),
         child: Column(
           children: [
+            SizedBox(
+              height: 20.h,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,8 +112,7 @@ class DesktopBody extends HookWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: screenHeight * .8,
+            Expanded(
               child: TabBarView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 controller: tabController,
@@ -150,10 +153,7 @@ class DesktopBody extends HookWidget {
                       )
                     ],
                   ),
-                  Text(
-                    'second Page',
-                    style: TextStyle(color: Colors.white, fontSize: 30.sp),
-                  ),
+                  const ProjectListWiget(),
                 ],
               ),
             ),
@@ -165,7 +165,7 @@ class DesktopBody extends HookWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 5.h),
+              margin: EdgeInsets.only(top: 5.h, bottom: 5.h),
               height: screenHeight * 0.07,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
